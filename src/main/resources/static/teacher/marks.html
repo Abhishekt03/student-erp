@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Student Marks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ========== RESET ========== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eef2ff,#f8fafc);
+    min-height:100vh;
+}
+
+/* ========== NAVBAR ========== */
+.navbar{
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:white;
+    padding:1rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.navbar h2{
+    font-size:1.4rem;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:1rem;
+    font-weight:500;
+}
+
+.navbar a:hover{
+    text-decoration:underline;
+}
+
+/* ========== CONTAINER ========== */
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:1.5rem;
+}
+
+.card{
+    width:100%;
+    max-width:500px;
+    background:white;
+    padding:2rem;
+    border-radius:16px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    animation:fadeIn .4s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:1.5rem;
+    color:#1e3c72;
+}
+
+/* ========== FORM ========== */
+.form-group{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+}
+
+label{
+    font-size:.9rem;
+    font-weight:600;
+    color:#555;
+    margin-top:.5rem;
+}
+
+input{
+    width:100%;
+    padding:.75rem;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:1rem;
+}
+
+input:focus{
+    outline:none;
+    border-color:#1e3c72;
+    box-shadow:0 0 0 3px rgba(30,60,114,0.15);
+}
+
+/* ========== BUTTON ========== */
+button{
+    width:100%;
+    margin-top:1.5rem;
+    padding:.85rem;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#28a745,#218838);
+    color:white;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,0.18);
+}
+
+/* ========== MESSAGE ========== */
+#msg{
+    margin-top:1rem;
+    text-align:center;
+    font-weight:600;
+}
+
+.success{ color:#28a745; }
+.error{ color:#e74c3c; }
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:600px){
+    .form-group{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:1.5rem;
+    }
+
+    .navbar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:.5rem;
+    }
+}
+
+@media(max-width:360px){
+    .card{
+        padding:1.2rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>Teacher Panel</h2>
+    <div>
+        <a href="teacher-dashboard.html">Dashboard</a>
+        <a href="../login.html" onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+    <div class="card">
+        <h2>Add Student Marks</h2>
+
+        <div class="form-group">
+            <div>
+                <label>Student ID</label>
+                <input type="number" id="studentId" placeholder="Student ID">
+            </div>
+
+            <div>
+                <label>Course ID</label>
+                <input type="number" id="courseId" placeholder="Course ID">
+            </div>
+
+            <div>
+                <label>Internal Marks</label>
+                <input type="number" id="internal" placeholder="Internal">
+            </div>
+
+            <div>
+                <label>External Marks</label>
+                <input type="number" id="external" placeholder="External">
+            </div>
+        </div>
+
+        <button onclick="submitMarks()">Submit Marks</button>
+        <p id="msg"></p>
+    </div>
+</div>
+
+<script>
+function submitMarks() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please login again");
+        window.location.href = "../login.html";
+        return;
+    }
+
+    const studentId = studentIdInput = document.getElementById("studentId").value;
+    const courseId  = document.getElementById("courseId").value;
+    const internal  = document.getElementById("internal").value;
+    const external  = document.getElementById("external").value;
+
+    fetch("http://localhost:8080/api/teacher/marks", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            studentId, courseId, internal, external
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Failed");
+        return res.text();
+    })
+    .then(data => {
+        document.getElementById("msg").innerHTML =
+            "<span class='success'>" + data + "</span>";
+    })
+    .catch(() => {
+        document.getElementById("msg").innerHTML =
+            "<span class='error'>Error adding marks</span>";
+    });
+}
+
+function logout(){
+    localStorage.clear();
+    window.location.href = "../login.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mark Attendance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+}
+
+body{
+    background:#f4f6fb;
+    min-height:100vh;
+    padding:1rem;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    max-width:1000px;
+    margin:auto;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:white;
+    padding:1rem 1.5rem;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.navbar h2{
+    font-size:1.4rem;
+}
+
+/* ---------- CONTAINER ---------- */
+.container{
+    max-width:1000px;
+    margin:1.5rem auto;
+}
+
+/* ---------- CARD ---------- */
+.card{
+    background:white;
+    padding:1.5rem;
+    border-radius:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* ---------- FORM ---------- */
+label{
+    font-weight:600;
+    color:#1e3c72;
+    display:block;
+    margin-bottom:.5rem;
+}
+
+select{
+    width:100%;
+    padding:.7rem;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin-bottom:1.5rem;
+    font-size:1rem;
+}
+
+
+/* ---------- TABLE ---------- */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#1e3c72;
+    color:white;
+}
+
+th, td{
+    padding:.9rem;
+    text-align:center;
+}
+
+tbody tr:nth-child(even){
+    background:#f8f9ff;
+}
+
+tbody tr:hover{
+    background:#eef2ff;
+}
+
+select.status{
+    padding:.4rem;
+    border-radius:6px;
+}
+
+/* ---------- MOBILE VIEW ---------- */
+@media(max-width:600px){
+    table, thead, tbody, th, td, tr{
+        display:block;
+    }
+
+    thead{
+        display:none;
+    }
+
+    tr{
+        background:white;
+        margin-bottom:1rem;
+        border-radius:12px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        padding:.8rem;
+    }
+ 
+
+    td{
+        text-align:right;
+        padding:.6rem;
+        position:relative;
+    }
+
+    td::before{
+        content:attr(data-label);
+        position:absolute;
+        left:.6rem;
+        font-weight:600;
+        color:#1e3c72;
+        text-align:left;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>Mark Attendance</h2>
+</div>
+
+
+<div class="container">
+
+    <div class="card">
+         <label>Select Course</label>
+        <select id="courseSelect" onchange="loadStudents()"></select>
+
+        <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                <tr>
+                    <td data-label="Name">Loading...</td>
+                    <td data-label="Email">--</td>
+                    <td data-label="Status">
+                        <select class="status">
+                            <option>Present</option>
+                            <option>Absent</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+    </div>
+</div>
+
+<script src="/js/teacher.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", loadCourses);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teacher Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#333;
+    min-height:100vh;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem 1.5rem;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:#fff;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.4rem;
+    font-weight:700;
+}
+
+#menu-toggle{
+    display:none;
+}
+
+.menu-icon{
+    display:none;
+    font-size:1.8rem;
+    cursor:pointer;
+}
+
+.nav-links{
+    display:flex;
+    gap:1.5rem;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    padding:0.5rem 1rem;
+    border-radius:5px;
+}
+
+.nav-links a:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+.logout{
+    background:#ff4757;
+}
+
+/* ---------- MAIN ---------- */
+.container{
+    max-width:1200px;
+    margin:2rem auto;
+    padding:0 1rem;
+}
+
+.welcome-card{
+    background:white;
+    padding:2rem;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    text-align:center;
+    border-left:5px solid #2a5298;
+}
+
+.welcome-card h2{
+    color:#1e3c72;
+    margin-bottom:.5rem;
+}
+
+/* ---------- DASHBOARD GRID ---------- */
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.5rem;
+    margin-top:2rem;
+}
+
+.dashboard-card{
+    background:white;
+    border-radius:12px;
+    padding:1.8rem;
+    text-align:center;
+    text-decoration:none;
+    color:inherit;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    transition:.3s;
+    border-top:4px solid;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-5px);
+}
+
+.card-icon{
+    width:70px;
+    height:70px;
+    margin:0 auto 1rem;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+}
+
+/* Card Colors */
+.card-1{border-color:#1e3c72;}
+.card-1 .card-icon{background:rgba(30,60,114,.1);color:#1e3c72;}
+
+.card-2{border-color:#2ecc71;}
+.card-2 .card-icon{background:rgba(46,204,113,.1);color:#2ecc71;}
+
+.card-3{border-color:#3498db;}
+.card-3 .card-icon{background:rgba(52,152,219,.1);color:#3498db;}
+
+.card-4{border-color:#9b59b6;}
+.card-4 .card-icon{background:rgba(155,89,182,.1);color:#9b59b6;}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background:#1e3c72;
+    color:white;
+    text-align:center;
+    padding:1.5rem;
+    margin-top:3rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+    .menu-icon{display:block;}
+
+    .nav-links{
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        flex-direction:column;
+        background:#1e3c72;
+        display:none;
+    }
+
+    #menu-toggle:checked ~ .nav-links{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:1rem;
+        border-bottom:1px solid rgba(255,255,255,.2);
+    }
+
+    .logo span{
+        display:none;
+    }
+}
+
+@media(max-width:480px){
+    .welcome-card h2{font-size:1.4rem;}
+    .dashboard-card{padding:1.4rem;}
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Teacher Dashboard</span>
+    </div>
+
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">
+        <i class="fas fa-bars"></i>
+    </label>
+
+    <nav class="nav-links">
+        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="../login.html" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+    <div class="welcome-card">
+        <h2>Welcome Back 👋</h2>
+        <p>Manage your academic tasks from the dashboard</p>
+    </div>
+
+    <div class="dashboard-grid">
+        
+
+        <a href="courses.html" class="dashboard-card card-2">
+            <div class="card-icon"><i class="fas fa-book"></i></div>
+            <h3>Add Courses</h3>
+            <p>Create courses</p>
+        </a>
+
+        <a href="Timetable.html" class="dashboard-card card-3">
+            <div class="card-icon"><i class="fas fa-clock"></i></div>
+            <h3>Add Timetable</h3>
+            <p>Schedule classes</p>
+        </a>
+
+        <a href="marks.html" class="dashboard-card card-3">
+            <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+            <h3>Add Marks</h3>
+            <p>Update results</p>
+        </a>
+
+        <a href="attendance.html" class="dashboard-card card-4">
+            <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+            <h3>Attendance</h3>
+            <p>Mark attendance</p>
+        </a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Teacher Dashboard</p>
+</footer>
+
+</body>
+</html>

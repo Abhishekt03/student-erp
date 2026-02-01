@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | User Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left side with illustration and welcome text -->
+        <div class="login-left">
+            <div class="login-welcome">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your account to continue accessing student and teacher resources.</p>
+                
+                <div class="login-features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h3>Secure Login</h3>
+                            <p>Your credentials are protected with encryption</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>24/7 Access</h3>
+                            <p>Access your account anytime, anywhere</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3>Role-Based Access</h3>
+                            <p>Different features for students and teachers</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-accounts">
+                    <h4>Demo Accounts:</h4>
+                    <div class="demo-account">
+                        <span>Student: student@demo.com</span>
+                        <span>Teacher: teacher@demo.com</span>
+                    </div>
+                    <p>Password for both: demo123</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right side with login form -->
+        <div class="login-right">
+            <div class="login-form-container">
+                <div class="login-header">
+                    <h2>Sign In</h2>
+                    <p>Enter your credentials to access your account</p>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                        <div class="input-hint">Enter your registered email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <div class="password-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="input-hint">Minimum 6 characters required</div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="/edit-profile.html" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="button" class="login-btn" onclick="login()">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    
+                   
+                    
+                    <div class="login-footer">
+                        <p id="msg" class="error-message"></p>
+                        <p>Don't have an account? <a href="register.html">Create an account</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script src="/js/auth.js"></script>
+</body>
+</html>

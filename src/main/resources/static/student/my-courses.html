@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Timetable</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+}
+
+body{
+    background:#f4f6fb;
+    min-height:100vh;
+    padding:1rem;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    max-width:1000px;
+    margin:auto;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:white;
+    padding:1rem 1.5rem;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.navbar h2{
+    font-size:1.4rem;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    background:#ff4757;
+    padding:.5rem 1.2rem;
+    border-radius:6px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.navbar a:hover{
+    background:#ff2f40;
+}
+
+/* ---------- CONTAINER ---------- */
+.container{
+    max-width:1000px;
+    margin:1.5rem auto;
+}
+
+/* ---------- CARD ---------- */
+.card{
+    background:white;
+    padding:1.5rem;
+    border-radius:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* ---------- TABLE ---------- */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+thead{
+    background:#1e3c72;
+    color:white;
+}
+
+th, td{
+    padding:1rem;
+    text-align:center;
+}
+
+tbody tr:nth-child(even){
+    background:#f8f9ff;
+}
+
+tbody tr:hover{
+    background:#eef2ff;
+}
+
+/* ---------- MOBILE VIEW ---------- */
+@media(max-width:600px){
+    table, thead, tbody, th, td, tr{
+        display:block;
+    }
+
+    thead{
+        display:none;
+    }
+
+    tr{
+        background:white;
+        margin-bottom:1rem;
+        border-radius:12px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        padding:.8rem;
+    }
+
+    td{
+        text-align:right;
+        padding:.6rem;
+        position:relative;
+    }
+
+    td::before{
+        content:attr(data-label);
+        position:absolute;
+        left:.6rem;
+        font-weight:600;
+        color:#1e3c72;
+        text-align:left;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>My Timetable</h2>
+    <a href="student-dashboard.html">Back</a>
+</div>
+
+<div class="container">
+    <div class="card">
+
+        <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Room</th>
+                </tr>
+            </thead>
+            <tbody id="timetableBody">
+                <tr>
+                    <td data-label="Course">Loading...</td>
+                    <td data-label="Day">--</td>
+                    <td data-label="Time">--</td>
+                    <td data-label="Room">--</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+    </div>
+</div>
+
+<script src="/js/student.js" defer></script>
+
+</body>
+</html>

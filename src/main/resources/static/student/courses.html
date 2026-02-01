@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Available Courses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    min-height:100vh;
+    color:#333;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem 1.5rem;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:#fff;
+}
+
+.navbar h2{
+    font-size:1.4rem;
+}
+
+.navbar a{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.2);
+    padding:.5rem 1rem;
+    border-radius:6px;
+    transition:.3s;
+}
+
+.navbar a:hover{
+    background:rgba(255,255,255,0.35);
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+.container{
+    max-width:900px;
+    margin:2rem auto;
+    padding:0 1rem;
+}
+
+/* ---------- CARD ---------- */
+.card{
+    background:white;
+    padding:2rem;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    text-align:center;
+    margin-bottom:1.5rem;
+    color:#1e3c72;
+}
+
+/* ---------- COURSE LIST ---------- */
+.list{
+    list-style:none;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:1rem;
+}
+
+.list li{
+    background:#f8f9fc;
+    padding:1.2rem;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    transition:.3s;
+    border-left:5px solid #2a5298;
+}
+
+.list li:hover{
+    transform:translateY(-4px);
+    background:#eef2ff;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:600px){
+    .navbar h2{
+        font-size:1.2rem;
+    }
+
+    .card{
+        padding:1.5rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>Available Courses</h2>
+    <a href="student-dashboard.html">⬅ Back</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>Courses List</h2>
+        <ul id="courseList" class="list">
+            <!-- JS will inject courses here -->
+            <!-- Example -->
+            <!-- <li>Java Programming</li> -->
+        </ul>
+    </div>
+</div>
+
+<script src="/js/student.js"></script>
+
+</body>
+</html>

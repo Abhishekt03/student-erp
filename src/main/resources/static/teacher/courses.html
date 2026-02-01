@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teacher Courses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eef2ff,#f8fafc);
+    min-height:100vh;
+    padding:1rem;
+}
+
+/* ================= CONTAINER ================= */
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:2rem;
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* ================= HEADINGS ================= */
+h2{
+    text-align:center;
+    color:#1e3c72;
+    margin-bottom:1.5rem;
+    font-size:2rem;
+}
+
+h3{
+    margin-top:2.2rem;
+    margin-bottom:1rem;
+    color:#333;
+    font-size:1.3rem;
+}
+
+/* ================= FORM ================= */
+.form-group{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+}
+
+input{
+    width:100%;
+    padding:.85rem 1rem;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:1rem;
+    transition:.3s;
+}
+
+input:focus{
+    outline:none;
+    border-color:#1e3c72;
+    box-shadow:0 0 0 3px rgba(30,60,114,0.15);
+}
+
+/* ================= BUTTON ================= */
+button{
+    width:100%;
+    padding:.9rem;
+    margin-top:1.3rem;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#28a745,#218838);
+    color:white;
+    font-size:1.05rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.18);
+}
+
+/* ================= COURSE LIST ================= */
+ul{
+    list-style:none;
+    margin-top:1rem;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1rem;
+}
+
+li{
+    background:#f8f9ff;
+    padding:1.2rem;
+    border-radius:16px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.08);
+    transition:.3s;
+}
+ a{
+    color:white;
+    text-decoration:none;
+    margin-left:1rem;
+    padding:.5rem 1rem;
+    border-radius:6px;
+    background:#ff4757;
+    font-weight:600;
+    transition:.3s;
+}
+
+ a:first-child{
+    background:#00b894;
+}
+a:hover{
+    opacity:.9;
+}
+
+li:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+li span{
+    display:block;
+    font-weight:600;
+    color:#1e3c72;
+    margin-bottom:.3rem;
+}
+
+li small{
+    color:#555;
+    font-size:.95rem;
+}
+
+/* ================= EMPTY ================= */
+.empty{
+    text-align:center;
+    color:gray;
+    margin-top:1rem;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablets */
+@media(max-width:900px){
+    h2{font-size:1.7rem;}
+}
+
+/* Mobile */
+@media(max-width:600px){
+    .container{
+        padding:1.4rem;
+        border-radius:14px;
+    }
+
+    .form-group{
+        grid-template-columns:1fr;
+    }
+
+    h2{
+        font-size:1.5rem;
+    }
+
+    ul{
+        grid-template-columns:1fr;
+    }
+}
+
+/* Small Mobile */
+@media(max-width:360px){
+    body{
+        padding:.5rem;
+    }
+
+    h2{
+        font-size:1.3rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Add Course</h2>
+    <div>
+        <a href="teacher-dashboard.html">Dashboard</a>
+        <a href="../login.html" onclick="logout()">Logout</a>
+    </div>
+    <br>
+
+    <div class="form-group">
+        <input type="text" id="courseTitle" placeholder="Course Title">
+        <input type="text" id="courseDesc" placeholder="Course Description">
+    </div>
+    
+
+    <button onclick="addCourse()">Add Course</button>
+
+    <h3>My Courses</h3>
+    <ul id="courseList"></ul>
+</div>
+
+<script src="../js/teacher.js"></script>
+<script>
+    loadCourseList();
+</script>
+
+</body>
+</html>

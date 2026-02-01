@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password | Account Settings</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+   
+           
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="content-header">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1>Account Security</h1>
+                <p>Change your password and manage security settings</p>
+            </div>
+
+            <div class="password-container">
+                <div class="password-card">
+                    <div class="card-header">
+                        <div class="icon-circle">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h2>Change Password</h2>
+                        <p>Update your password to keep your account secure</p>
+                    </div>
+
+                    <div class="password-form">
+                        <div class="form-group">
+                            <label for="oldPassword">
+                                <i class="fas fa-key"></i>
+                                Old Password
+                            </label>
+                            <div class="input-with-icon">
+                                <input 
+                                    type="password" 
+                                    id="oldPassword" 
+                                    placeholder="Enter your current password"
+                                >
+                                <button type="button" class="password-toggle" data-target="oldPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Enter your current account password
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">
+                                <i class="fas fa-key"></i>
+                                New Password
+                            </label>
+                            <div class="input-with-icon">
+                                <input 
+                                    type="password" 
+                                    id="newPassword" 
+                                    placeholder="Enter your new password"
+                                >
+                                <button type="button" class="password-toggle" data-target="newPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">
+                                <i class="fas fa-key"></i>
+                                Confirm New Password
+                            </label>
+                            <div class="input-with-icon">
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    placeholder="Re-enter your new password"
+                                >
+                                <button type="button" class="password-toggle" data-target="confirmPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-match" id="passwordMatch">
+                                <i class="fas fa-info-circle"></i>
+                                Passwords must match
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn-primary" onclick="changePassword()">
+                                <i class="fas fa-save"></i>
+                                Update Password
+                            </button>
+                            <button class="btn-secondary" onclick="goBack()">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Profile
+                            </button>
+                        </div>
+
+                        
+    </div>
+
+
+<script src="/js/edit-profile.js"></script>
+</body>
+</html>
