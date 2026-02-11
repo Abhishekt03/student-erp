@@ -11,7 +11,7 @@ function changePassword() {
         return;
     }
 
-    fetch("http://localhost:8080/api/profile/change-password", {
+    fetch("/api/profile/change-password", {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + token,

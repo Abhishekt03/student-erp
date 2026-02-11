@@ -8,7 +8,7 @@ if (!token) {
 
 /* ===== AVAILABLE COURSES ===== */
 function loadCourses() {
-    fetch("http://localhost:8080/api/courses", {
+    fetch("/api/courses", {
         headers: { "Authorization": "Bearer " + token }
     })
     .then(res => res.json())
@@ -35,7 +35,7 @@ function enroll(courseId) {
         return;
     }
 
-    fetch(`http://localhost:8080/api/student/enroll/${courseId}`, {
+    fetch(`/api/student/enroll/${courseId}`, {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + token
@@ -57,7 +57,7 @@ function enroll(courseId) {
 
 
 /* LOAD STUDENT COURSES */
-fetch("http://localhost:8080/api/student/attendance", {
+fetch("/api/student/attendance", {
     headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
     }
@@ -116,7 +116,7 @@ document.getElementById("attendancePercent").innerText =
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    fetch("http://localhost:8080/api/student/marks", {
+    fetch("/api/student/marks", {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
         }
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    fetch("http://localhost:8080/api/student/timetable", {
+    fetch("/api/student/timetable", {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
         }
