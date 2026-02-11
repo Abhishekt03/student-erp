@@ -4,19 +4,11 @@ async function login() {
     const password = document.getElementById("password").value;
 
     try {
-        const response = await fetch(
-            "/api/auth/login",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            }
-        );
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
         if (!response.ok) {
             document.getElementById("msg").innerText = "Invalid email or password";
@@ -25,14 +17,17 @@ async function login() {
 
         const data = await response.json();
 
+        // 🔴 ADD THIS LINE
+        console.log("LOGIN RESPONSE 👉", data);
+
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
 
-        if (data.role === "ROLE_STUDENT") {
+        if (data.role === "ROLE_STUDENT" || data.role === "STUDENT") {
             window.location.href = "/student/student-dashboard.html";
-        } else if (data.role === "ROLE_TEACHER") {
+        } else if (data.role === "ROLE_TEACHER" || data.role === "TEACHER") {
             window.location.href = "/teacher/teacher-dashboard.html";
-        } else if (data.role === "ROLE_ADMIN") {
+        } else if (data.role === "ROLE_ADMIN" || data.role === "ADMIN") {
             window.location.href = "/admin/admin-dashboard.html";
         }
 
