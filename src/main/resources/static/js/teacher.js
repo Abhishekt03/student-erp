@@ -8,7 +8,7 @@ if (!token) {
 
 // Fetch teacher courses
 function addCourse() {
-    fetch("http://localhost:8080/api/teacher/courses", {
+    fetch("/api/teacher/courses", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +26,7 @@ function addCourse() {
     });
 }
 function loadCourseList() {
-    fetch("http://localhost:8080/api/teacher/courses", {
+    fetch("/api/teacher/courses", {
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
         }
@@ -61,7 +61,7 @@ function loadStudents() {
     const courseId = document.getElementById("courseSelect").value;
     if (!courseId) return;
 
-    fetch(`http://localhost:8080/api/teacher/students?courseId=${courseId}`, {
+    fetch(`/api/teacher/students?courseId=${courseId}`, {
         headers: { "Authorization": "Bearer " + token }
     })
     .then(res => res.json())
@@ -110,7 +110,7 @@ function markAttendance(studentId, status) {
     }
 
     fetch(
-        `http://localhost:8080/api/teacher/attendance?studentId=${studentId}&courseId=${courseId}&status=${status}`,
+        `/api/teacher/attendance?studentId=${studentId}&courseId=${courseId}&status=${status}`,
         {
             method: "POST",
             headers: {
@@ -136,7 +136,7 @@ function markAttendance(studentId, status) {
 
 function uploadMarks() {
 
-    fetch("http://localhost:8080/api/teacher/marks", {
+    fetch("/api/teacher/marks", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -168,7 +168,7 @@ function loadCourses() {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:8080/api/teacher/courses", {
+    fetch("/api/teacher/courses", {
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -199,7 +199,7 @@ function addTimetable() {
         return;
     }
 
-    fetch("http://localhost:8080/api/teacher/timetable", {
+    fetch("/api/teacher/timetable", {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token"),
