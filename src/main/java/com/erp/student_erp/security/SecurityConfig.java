@@ -41,7 +41,8 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable()) // 🔥 REQUIRED for API login
-                .cors(cors -> cors.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
