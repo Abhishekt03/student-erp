@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("registerBtn");
-    if (btn) {
+    const agree = document.getElementById("agree");
+
+    if (btn && agree) {
+        btn.disabled = true;
+
+        agree.addEventListener("change", () => {
+            btn.disabled = !agree.checked;
+        });
+
         btn.addEventListener("click", register);
     }
 });
@@ -22,7 +30,6 @@ function register() {
         return;
     }
 
-    // ✅ IMPORTANT: NO localhost (works on Render)
     fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -31,9 +38,7 @@ function register() {
         body: JSON.stringify(data)
     })
     .then(res => {
-        if (!res.ok) {
-            return res.text().then(err => { throw err; });
-        }
+        if (!res.ok) throw new Error("Registration failed");
         return res.text();
     })
     .then(msg => {
