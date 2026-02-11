@@ -1,25 +1,22 @@
+// ===============================
+// TEACHER PROFILE
+// ===============================
 document.addEventListener("DOMContentLoaded", () => {
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert("Please login again");
-        window.location.href = "/login.html";
-        return;
-    }
-
     loadProfile();
     loadPhoto();
+    loadCourses();
+    loadCourseList();
 });
 
 function loadProfile() {
     fetch("/api/student/profile", {
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + token
         }
     })
-    .then(r => {
-        if (!r.ok) throw new Error("Unauthorized");
-        return r.json();
+    .then(res => {
+        if (!res.ok) throw new Error("Unauthorized");
+        return res.json();
     })
     .then(d => {
         document.getElementById("userId").innerText = d.id ?? "-";
@@ -30,13 +27,15 @@ function loadProfile() {
         document.getElementById("phone").innerText = d.phone ?? "-";
         document.getElementById("address").innerText = d.address ?? "-";
     })
-    .catch(err => {
-        console.error(err);
+    .catch(() => {
         alert("Session expired. Login again.");
         window.location.href = "/login.html";
     });
 }
 
+// ===============================
+// PHOTO
+// ===============================
 function openFilePicker() {
     document.getElementById("photoInput").click();
 }
@@ -44,44 +43,40 @@ function openFilePicker() {
 function loadPhoto() {
     fetch("/api/student/profile/photo", {
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + token
         }
     })
-    .then(r => {
-        if (!r.ok) throw new Error("Photo not found");
-        return r.blob();
+    .then(res => {
+        if (!res.ok) throw new Error();
+        return res.blob();
     })
-    .then(b => {
+    .then(blob => {
         document.getElementById("profilePic").src =
-            URL.createObjectURL(b);
+            URL.createObjectURL(blob);
     })
-    .catch(() => {
-        console.warn("No profile photo");
-    });
+    .catch(() => console.warn("No profile photo"));
 }
 
 function uploadPhoto() {
-    const fileInput = document.getElementById("photoInput");
-    const file = fileInput.files[0];
-
+    const file = document.getElementById("photoInput").files[0];
     if (!file) {
-        alert("Please select a file");
+        alert("Select a file");
         return;
     }
 
     const formData = new FormData();
     formData.append("photo", file);
 
-    fetch("/api/student/profile/photo", {   // ✅ FIXED
+    fetch("/api/student/profile/photo", {
         method: "POST",
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + token
         },
         body: formData
     })
     .then(res => {
         if (!res.ok) throw new Error("Upload failed");
-        alert("Photo uploaded successfully");
+        alert("Photo uploaded");
         loadPhoto();
     })
     .catch(() => alert("Photo upload failed"));
