@@ -4,10 +4,6 @@
 
 const token = localStorage.getItem("token");
 
-if (!token) {
-    alert("Session expired. Please login again.");
-    window.location.href = "/login.html";
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     loadProfile();
