@@ -3,7 +3,6 @@
 // ===============================
 
 
-
 // ===============================
 // ADD COURSE
 // ===============================
@@ -11,7 +10,10 @@ function addCourse() {
     const title = document.getElementById("courseTitle").value;
     const description = document.getElementById("courseDesc").value;
 
-    if (!title || !description) return alert("Fill all fields");
+    if (!title || !description) {
+        alert("Please fill all fields");
+        return;
+    }
 
     fetch("/api/teacher/courses", {
         method: "POST",
@@ -21,25 +23,35 @@ function addCourse() {
         },
         body: JSON.stringify({ title, description })
     })
-    .then(res => res.text())
+    .then(res => {
+        if (!res.ok) {
+            return res.text().then(t => { throw new Error(t); });
+        }
+        return res.text();   // ✅ NOT json
+    })
     .then(msg => {
-        alert(msg || "Course added");
+        alert(msg || "Course added successfully");
         loadCourses();
         loadCourseList();
     })
-    .catch(err => alert(err.message));
+    .catch(err => {
+        console.error(err);
+        alert(err.message);
+    });
 }
 
 // ===============================
-// COURSE LIST (UL)
+// LOAD COURSE LIST (UL)
 // ===============================
 function loadCourseList() {
     fetch("/api/teacher/courses", {
-        headers: { "Authorization": "Bearer " + window.token }
+        headers: {
+            "Authorization": "Bearer " + window.token
+        }
     })
     .then(res => {
         if (res.status === 204) return [];
-        if (!res.ok) throw new Error("403 Forbidden");
+        if (!res.ok) throw new Error("403 Forbidden – Teacher access required");
         return res.json();
     })
     .then(data => {
@@ -47,7 +59,11 @@ function loadCourseList() {
         if (!ul) return;
 
         ul.innerHTML = "";
-        if (!data.length) return ul.innerHTML = "<li>No courses</li>";
+
+        if (!data || data.length === 0) {
+            ul.innerHTML = "<li>No courses found</li>";
+            return;
+        }
 
         data.forEach(c => {
             const li = document.createElement("li");
@@ -55,29 +71,36 @@ function loadCourseList() {
             ul.appendChild(li);
         });
     })
-    .catch(err => alert(err.message));
+    .catch(err => {
+        console.error(err);
+        alert(err.message);
+    });
 }
 
 // ===============================
-// COURSE DROPDOWN
+// LOAD COURSES (DROPDOWN)
 // ===============================
 function loadCourses() {
-    const select = document.getElementById("courseSelect");
-    if (!select) return;
+    const courseSelect = document.getElementById("courseSelect");
+    if (!courseSelect) return;
 
     fetch("/api/teacher/courses", {
-        headers: { "Authorization": "Bearer " + window.token }
+        headers: {
+            "Authorization": "Bearer " + window.token
+        }
     })
     .then(res => {
         if (res.status === 204) return [];
+        if (!res.ok) throw new Error("Unauthorized");
         return res.json();
     })
     .then(data => {
-        select.innerHTML = `<option value="">-- Select Course --</option>`;
+        courseSelect.innerHTML = `<option value="">-- Select Course --</option>`;
         data.forEach(c => {
-            select.innerHTML += `<option value="${c.id}">${c.title}</option>`;
+            courseSelect.innerHTML += `<option value="${c.id}">${c.title}</option>`;
         });
-    });
+    })
+    .catch(err => console.error(err));
 }
 
 // ===============================
@@ -90,43 +113,58 @@ function loadStudents() {
     fetch(`/api/teacher/students?courseId=${courseId}`, {
         headers: { "Authorization": "Bearer " + window.token }
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) throw new Error("Failed to load students");
+        return res.json();
+    })
     .then(students => {
         const tbody = document.getElementById("studentTable");
         tbody.innerHTML = "";
 
-        if (!students.length) {
-            tbody.innerHTML = `<tr><td colspan="3">No students</td></tr>`;
+        if (!students || students.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="3">No students enrolled</td></tr>`;
             return;
         }
 
         students.forEach(s => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${s.name}</td>
-                    <td>${s.email}</td>
-                    <td>
-                        <button onclick="markAttendance(${s.id}, true)">Present</button>
-                        <button onclick="markAttendance(${s.id}, false)">Absent</button>
-                    </td>
-                </tr>`;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${s.name}</td>
+                <td>${s.email}</td>
+                <td>
+                    <button onclick="markAttendance(${s.id}, true)">Present</button>
+                    <button onclick="markAttendance(${s.id}, false)">Absent</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
         });
-    });
+    })
+    .catch(err => alert(err.message));
 }
 
 // ===============================
-// ATTENDANCE
+// MARK ATTENDANCE
 // ===============================
 function markAttendance(studentId, status) {
     const courseId = document.getElementById("courseSelect").value;
-    if (!courseId) return alert("Select course");
+
+    if (!courseId) {
+        alert("Select course first");
+        return;
+    }
 
     fetch(`/api/teacher/attendance?studentId=${studentId}&courseId=${courseId}&status=${status}`, {
         method: "POST",
-        headers: { "Authorization": "Bearer " + window.token }
+        headers: {
+            "Authorization": "Bearer " + window.token
+        }
     })
-    .then(res => res.text())
-    .then(msg => alert(msg || "Attendance marked"));
+    .then(res => {
+        if (!res.ok) return res.text().then(t => { throw new Error(t); });
+        return res.text();
+    })
+    .then(msg => alert(msg || "Attendance marked"))
+    .catch(err => alert(err.message));
 }
 
 // ===============================
@@ -146,7 +184,10 @@ function uploadMarks() {
             external: document.getElementById("external").value
         })
     })
-    .then(res => res.text())
+    .then(res => {
+        if (!res.ok) throw new Error("Access denied or bad request");
+        return res.text();
+    })
     .then(alert)
     .catch(err => alert(err.message));
 }
